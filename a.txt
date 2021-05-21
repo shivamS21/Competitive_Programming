@@ -1,0 +1,291 @@
+
+    freopen("input.txt","r",stdin);         //dont forget to comment it before final submission
+    freopen("output.txt","w",stdout);
+    
+//remarks..
+/*
+cout << "hello" << endl;
+1.seive of erasthanos till n=10000
+2.lcm
+3.power function..dont forget to apply mod if needed
+4.int to string and vice-versa
+5.checking the prime no
+6.pascal triangle implementation
+7.always check for the condition needed to be satisified at the end of the 
+program possibly by putting the ans obtained eqaul to the result
+8.subarray sum equal to k
+g++ -std=c++17
+*/
+//euclidean advanced algorithm
+ll gcd(ll a, ll b, ll &x, ll &y){
+    if(b == 0){
+        x = 1;
+        y = 0;
+        return a;
+    }
+    ll x1,y1;
+    ll g = gcd(b,a%b,x1,y1);
+    x = y1;
+    y = x1 - y1 * (a/b);
+    return g;
+}
+bool find_any_solution(ll a,ll b,ll c,ll &x,ll &y,ll &g){
+    g = gcd(abs(a),abs(b),x,y);
+    if(c%g) return false;
+    x = x*(c/g);
+    y = y*(c/g);
+    if(a < 0) x = -x;
+    if(b < 0) y = -y;
+    return true;
+}
+//new way to sort a vector in decreasing order
+sort(order.begin(), order.end(), [&](ll x, ll y) {
+        return A[x] > A[y];
+    });
+
+//apply mod if needed
+ll power(ll no,ll p)
+{
+    if(p == 1)
+    return no;
+    if(p == 0)
+    return 1;
+    ll q = power(no,p/2);
+    q = (q*q)%M;
+    if(p % 2 != 0)
+    q = (q*no)%M;
+    return q;
+}
+//function to convert integer to string.....
+string IntToString(ll a) 
+{ 
+    char x[100]; 
+    sprintf(x, "%lld", a); 
+    string s = x; 
+    return s; 
+} 
+//function to convert string to int......... 
+ll StringToInt(string a) 
+{ 
+    char x[100]; 
+    ll res; 
+    strcpy(x, a.c_str()); 
+    sscanf(x, "%lld", &res); 
+    return res; 
+}
+
+//to check the no as prime........
+bool prime(ll no)
+{
+    if(no < 3)
+    return true;
+    int factor = 0;
+    for(int i=2;i*i<= no;i++)
+    {
+        if(no%i == 0)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+// seive of erasthanose till n=1e4...........
+
+void Sieve() 
+{ 
+    ll n = 1e5;
+    bool prime[n+1]; 
+    memset(prime, true, sizeof(prime)); 
+    for(ll p=2;p*p <= n;p+=1) {
+        if(prime[p] == true){
+           for (ll i=p*p; i<=n; i += p) 
+                prime[i] = false;
+        }
+    }
+} 
+
+
+// to calcualte the lcm of two no........
+long long lcm(ll a, ll b)
+{
+    return (a*b)/(__gcd(a,b));
+}
+
+//pascal triangle implementation
+int arr[1000][1000];
+#define P 1e9
+void pascal()
+{
+    for(int i=0;i<1000;i++)
+    {
+        for(int j=0;j<=i;j++)
+        {
+            if(j == 0)
+            arr[i][j] = 1;
+            else if(j == i)
+            arr[i][j] = 1;
+            else
+            {
+                arr[i][j] = (arr[i-1][j-1]%P+arr[i-1][j]%P)%P;
+            }
+        }
+    }
+}
+
+//function to find the subarrays with sum equal to k
+ll subarray(ll arr[],ll n,ll k)
+{
+    map<ll,int>mp;
+    ll count = 0;
+    ll sum = 0;
+    
+    rep(i,0,n)
+    {
+        sum += arr[i];
+        if(sum == k)
+        count += 1;
+
+        if(mp.find(sum-k) != mp.end())
+        {
+            count += mp[sum-k];
+        }
+        mp[sum] += 1;
+    }
+    return count;
+}
+
+//factorial function
+const int N=1e9+2;
+int a[N];
+void fac(){
+    a[0] = 1;
+    a[1] = 1;
+    rep(i,2,N){
+        a[i] = (a[i-1]*i)%M;
+    }
+}
+
+//good way to find the sum of coefficients of n from 0 to  n as nc0+ nc1 but deleting some terms meanwhile... this can be done using very nice trick 
+//trick is in file name Cards.cpp
+
+//dijkstra Algo
+//.............................................................//
+vector<pair<int,int>> adj[100005];
+vector<int> visited(100005,0);
+vector<int> distance(100005,INT_MAX);
+int minDistance(){
+    int mn = INT_MAX, minIndex;
+    rep(i,1,n+1){
+        if(!visited[i] and distance[i] <= mn)
+        mn = distance[i], minIndex = i;
+    }
+    return minIndex;
+}
+void dijkstra(int s) {
+    distance[s] = 0;
+    // v = total vertices
+    rep(i,0,n-1) {
+        // now for every interation we will try finding out the index where the minimum path sum is occuring.
+        int u = minDistance();
+        visited[u] = 1;
+        for(pair<int,int> v: adj[u]){
+            if(!visited[v.first] and distance[u] != INT_MAX and distance[u]+adj[v.second] < distance[v.first] )
+            distance[v.first] = distance[u] + adj[v.second]; 
+        }
+    }
+}
+//complexity of the above algo is O(n^2+m)
+
+// now, the algo mentioned below is having the complexity of O(n+m);
+vector<pair<int,int>> adj[100005];
+vector<int> visited(100005,0);
+vector<int> distance(100005,INT_MAX);
+vector<int> parent(100005,0);
+void dijkstra() {
+    priority_queue<pair<int,int>, vector<pair<int,int> >, greater<pair<int,int> > > pq;
+    pq.push({0,1});
+    dist[1] = 0;
+    // n = total vertices
+    parent[1] = 1;
+
+    while(!pq.empty()) {
+        // now for every interation we will try finding out the index where the minimum path sum is occuring.
+        int u = pq.top().second;
+        pq.pop();
+        visited[u] = 1;
+        if(dist[u] == INT_MAX)
+        break;
+        for(pair<int,int> v: adj[u]){
+            if(!visited[v.first] and dist[u]+v.second < dist[v.first])
+            dist[v.first] = dist[u] + v.second, parent[v.first] = u, pq.push({dist[v.first], v.first});
+        }
+    }
+    if(dist[n] == INT_MAX){
+        cout << -1;
+        return;
+    }
+    vector<int> path;
+    int u = n;
+    while(u != 1){
+        path.pb(u);
+        u = parent[u];
+    }
+    path.pb(1);
+    reverse(path.begin(), path.end());
+    print(path);
+}
+//.............................................................//
+
+//bfs
+vector<int> adj[10000];
+
+int visited[10000];
+int dist[10000];
+
+void bfs(int s){
+    queue<int> q;
+    for(int i=1; i< 10000; i++){
+        distance[i] = 1000000;
+    }
+
+    q.push(s);
+    dist[s] = 0;
+    visited[s] = true;
+
+    while( !q.empty() ){
+        int curr = q.front();
+        q.pop();
+        
+        for(int adjacent_vertex: adj[curr]){
+            if(visited[adjacent_vertex])
+            continue;
+            q.push(adjacent_vertex);
+            visited[adjacent_vertex] = true;
+            dist[adjacent_vertex] = dist[curr] + 1;
+        }
+    }
+}
+
+//dfs
+vector<int> adj[10000];     // adj[x] contains the element which have an edge with x
+bool visited[10000];
+
+bool find_path(int curr, int destination){
+    if(curr == destination)
+    return true;
+    visited[curr] = true;
+    bool found = false;
+    for(int adjacent_vertex: adj[curr]){
+        if(visited[adjacent_vertex])
+        continue;
+        if(find_path(adjacent_vertex, destination))
+        found = true;
+    }
+    return found;
+}
+//...................................................//////////
+
+int remainder(string s){
+    
+}
