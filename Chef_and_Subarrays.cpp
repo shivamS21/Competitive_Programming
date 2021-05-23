@@ -22,8 +22,21 @@ bool comp(ll x,ll y)
  
 void solve(){
     ll m,n,k;
-    cin >> n;
-    
+    cin >> n >> k;
+    vector<ll> vec(n);
+    rep(i,0,n) cin >> vec[i];
+    ll ans = 0;
+    rep(i,0,k){
+        map<ll,ll> mp;
+        ll count = 0, mx = -1;;
+        for(ll j = i; j<n; j+=k){
+            mp[vec[j]] += 1;
+            count += 1;
+            mx = max(mx, mp[vec[j]]);
+        }
+        ans += count - mx;
+    }
+    cout<<ans<<endl;
 }
 int main() {
     FAST_FURIER;

@@ -19,55 +19,43 @@ bool comp(ll x,ll y)
  
 /*...............code starts here................*/
 // C is first won in M
-ll power(ll no,ll p)
-{
-    if(p == 1)
-    return no;
-    if(p == 0)
-    return 1;
-    ll q = power(no,p/2);
-    q = (q*q)%M;
-    if(p % 2 != 0)
-    q = (q*no)%M;
-    return q;
-}
+ 
 void solve(){
-    ll m,n,k;
-    cin >> n >> k;
-    string s; cin >> s;
-    ll ans = 0;
-    ll left = (n+1)/2 - 1;
-    rep(i,0,(n+1)/2){
-        if(s[i]=='a') continue;
-        ll a = s[i] - 'a';
-        ll b = power(k, left - i);
-        b = (a*b)%M;
-        ans = (ans + b)%M;
+    ll x,y; cin >> x >> y;
+    ll m = 0, count = 1, sum = 0;
+    set<ll> s;
+    while(true){
+        ll streak = 0;
+        while(sum + x*count <= y){
+            m += 1;
+            streak += 1;
+            sum += x*count;count *= 2;
+        }
+        if(s.find(streak)!=s.end()){
+            cout<<-1<<endl;
+            return;
+        }
+        else s.insert(streak);
+        count = 1;
+        if(sum == y){
+            cout<<m << endl;
+            return;
+        }
+        if(x > y - sum){
+            cout<<-1<<endl;
+            return;
+        }
+        m += 1;
     }
-    string temp(n,'a');
-    rep(i,0,(n+1)/2){
-        temp[i] = s[i];
-    }
-    int i = (n+1)/2, j = (n)/2-1;
-    while(i < n){
-        temp[i] = s[j];
-        j -=1;
-        i += 1;
-    }
-    // cout<<temp<<endl;
-    if(temp < s)
-    ans = (ans + 1)%M;
-    cout<<ans<<endl;
+    
 }
 int main() {
     FAST_FURIER;
     int tt=1;
     cin >> tt;
-    int count = 1;
     while(tt--){
-        cout<<"Case #"<<count<<": ";
         solve();
-        count += 1;
+    
     }
 }
  
