@@ -19,41 +19,40 @@ bool comp(ll x,ll y)
  
 /*...............code starts here................*/
 // C is first won in M
+vector<vector<ll> > v(100005, vector<ll>(2,0));
 ll dp[100005][2];
-vector<pair<ll,ll> > v(100005);
-ll calc(ll p, ll i, ll val, vector<vector<ll> > adj){
-    cout << p << " " << i << endl;
-    if(adj[p].size()==0)
-    return 0;
-    ll &res = dp[p][i];
+ll calc(ll x, ll index, ll p, vector<ll> adj[]){
+    ll &res = dp[x][index];
     if(res != -1)
     return res;
-    ll ans = 0;
-    for(ll node: adj[p]){
-        ll a = abs(val - v[node].first) + calc(node, 0, v[node].first, adj);
-        ll b = abs(val - v[node].second) + calc(node, 1, v[node].second, adj);
-        ans += max(a, b);
+    ll temp = 0;
+    for(ll node: adj[x]){
+        if(node != p){
+            ll a = abs(v[x][index] - v[node][0]) + calc(node, 0, x, adj);
+            ll b = abs(v[x][index] - v[node][1]) + calc(node, 1, x, adj);
+            temp += max(a, b);
+        }
     }
-    res = ans;
+    res = temp;
     return res;
 }
 void solve(){
     ll m,n,k;
     cin >> n;
-    vector<pair<ll,ll> > v(n+1);
+    vector<ll> adj[n+1];
     rep(i,1,n+1){
-        cin >> v[i].first >> v[i].second;
+        cin >> v[i][0] >> v[i][1];
+        dp[i][0] = -1;
+        dp[i][1] = -1;
     }
-    vector<vector<ll> > adj(n+1);
     rep(i,0,n-1){
         ll a, b; cin >> a >> b;
         adj[a].pb(b);
+        adj[b].pb(a);
     }
-    mem(dp,-1);
-    dp[1][0] = calc(1, 0, v[1].first, adj);
-    dp[1][1] = calc(1, 1, v[1].second, adj);
-    cout<<max(dp[1][0], dp[1][1])<<endl;
-
+    ll a = calc(1, 0, -1, adj);
+    ll b = calc(1, 1, -1, adj);
+    cout<< max(a, b) << endl;
 }
 int main() {
     FAST_FURIER;
@@ -61,7 +60,6 @@ int main() {
     cin >> tt;
     while(tt--){
         solve();
-    
     }
 }
  

@@ -1,4 +1,5 @@
 practise/
+bin/
 .cph/
 .vscode/
 .gitignore/
@@ -6,4 +7,3 @@ desktop.ini/
 .temp/
 a.txt/
 sample.txt/
-a.txt/
