@@ -11,7 +11,7 @@ using namespace std;typedef long long ll;
 #define rrep(i,a,N)     for(ll i=a;i>N;i--)
 #define print(v)        for(ll ite=0;ite<v.size();ite++){cout<<v[ite]<<' ';}cout<<endl;
 #define mem(v,a) 		 memset(v, a, sizeof(v))
-#define M 998244353
+#define M 1000000007
 bool comp(ll x,ll y)
 {
     return x > y;
@@ -19,22 +19,20 @@ bool comp(ll x,ll y)
  
 /*...............code starts here................*/
 // C is first won in M
-ll dp[1000006]; 
+int dp[100006]; 
+ll m,n,k;
+vector<int> arr;
 void solve(){
-    ll m,n,k;
-    cin >> n;
-    for(ll i = 1; i < 1000006; i++){
-        for(ll j = i + i; j < 1000006; j+=i){
-            dp[j] += 1;
+    cin >> n >> k;
+    arr.resize(n);
+    rep(i,0,n) cin >> arr[i];
+    rep(i,1,k+1){
+        rep(j,0,n){
+            if(arr[j] <= i)
+            dp[i] = dp[i] or (dp[i-arr[j]] ^ 1);
         }
     }
-    dp[0] = 1;
-    ll c = 1;
-    rep(i,1,n+1){
-        dp[i] = (dp[i]+ c)%M;
-        c = (c + dp[i])%M;
-    }
-    cout << dp[n] << endl;
+    cout<<(dp[k]?"First":"Second");
 }
 int main() {
     FAST_FURIER;
@@ -45,6 +43,7 @@ int main() {
     
     }
 }
+ 
  
  
  
