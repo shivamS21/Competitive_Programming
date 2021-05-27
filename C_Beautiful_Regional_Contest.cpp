@@ -19,44 +19,47 @@ bool comp(ll x,ll y)
  
 /*...............code starts here................*/
 // C is first won in M
-int dp[100006][2]; 
-ll m,n,k;
-vector<int> arr;
-int calc(int val, int choice){
-    int &res = dp[val][choice];
-    if(res != -1)
-    return 1 - res;
-    res = 0;
-    rep(i,0,n){
-        if(arr[i] <= val)
-        res = res or calc(val-arr[i], 1-choice);
-    }
-    return 1-res;
-}
+ 
 void solve(){
-    cin >> n >> k;
-    arr.resize(n);
-    rep(i,0,n) cin >> arr[i];
-    int a=0;
-    mem(dp, -1);
-    rep(i,0,n){
-        if(arr[i]<=k){
-            a += calc(k-arr[i],1);
+    ll m,n,k;
+    cin >> n;
+    vector<ll> vec(n);
+    rep(i,0,n) cin >> vec[i];
+    map<ll,int> mp;
+    for(ll i: vec)
+    mp[-i] += 1;
+    vector<int> count;
+    for(pair<int,int> p: mp)
+    count.pb(p.second);
+    int g = count[0];
+    int s = 0, i = 1;
+    while(s <= g and i < count.size())
+    s += count[i++];
+    int ok = 0;
+    if(s>g){
+        int b = 0;
+        while(b <= g and i < count.size()){
+            b += count[i++];
+        }
+        while(i < count.size() and g+s+b+count[i] <= n/2 )
+        b += count[i++];
+        if(g < b and g < s and g+s+b <= n/2){
+            ok = 1;
+            cout<<g<<" "<<s<<" "<<b<<endl;
         }
     }
-    if(a==0)cout<<"Second"<<endl;
-    else cout<<"First"<<endl;
+    if(!ok)
+    cout<<"0 0 0"<<endl;
 }
 int main() {
     FAST_FURIER;
     int tt=1;
-    // cin >> tt;
+    cin >> tt;
     while(tt--){
         solve();
     
     }
 }
- 
  
  
  

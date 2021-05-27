@@ -3,17 +3,15 @@
 using namespace std;typedef long long ll;
 #define FAST_FURIER ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
 #define pb push_back
-#define ppb pop_back
 #define mk make_pair
 #define sorta(v)        sort(v.begin(), v.end())
 #define sortd(v)        sort(v.begin(), v.end(), comp)
 #define rep(i,a,N)      for(ll i=a;i<N;i++)
 #define rrep(i,a,N)     for(ll i=a;i>N;i--)
 #define print(v)        for(ll ite=0;ite<v.size();ite++){cout<<v[ite]<<' ';}cout<<endl;
-#define mem(v,a) 		 memset(v, a, sizeof(v))
 #define M 1000000007
-bool comp(ll x,ll y)
-{
+ 
+bool comp(ll x,ll y){
     return x > y;
 }
  
@@ -31,11 +29,6 @@ int main() {
     cin >> tt;
     while(tt--){
         solve();
-    
     }
 }
  
- 
- 
- 
-// g++ -std=c++17

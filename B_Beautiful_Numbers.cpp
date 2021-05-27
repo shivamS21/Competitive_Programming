@@ -19,44 +19,45 @@ bool comp(ll x,ll y)
  
 /*...............code starts here................*/
 // C is first won in M
-int dp[100006][2]; 
-ll m,n,k;
-vector<int> arr;
-int calc(int val, int choice){
-    int &res = dp[val][choice];
-    if(res != -1)
-    return 1 - res;
-    res = 0;
-    rep(i,0,n){
-        if(arr[i] <= val)
-        res = res or calc(val-arr[i], 1-choice);
-    }
-    return 1-res;
-}
+ 
 void solve(){
-    cin >> n >> k;
-    arr.resize(n);
-    rep(i,0,n) cin >> arr[i];
-    int a=0;
-    mem(dp, -1);
-    rep(i,0,n){
-        if(arr[i]<=k){
-            a += calc(k-arr[i],1);
-        }
+    ll m,n,k;
+    cin >> n;
+    vector<int> vec(n+1);
+    rep(i,0,n) cin >> vec[i+1];
+    int arr[n+1]={0};
+    rep(i,1,n+1){
+        arr[vec[i]] = i;
     }
-    if(a==0)cout<<"Second"<<endl;
-    else cout<<"First"<<endl;
+    int j = 1, a = arr[1], b = arr[1];
+    int ans[n+1]={0};
+    ans[1] = arr[1];
+    while(j <= n){
+        if(arr[j] > a and arr[j] < b){
+            if(b-a+1 == j)
+            ans[j] = 1;
+        }
+        else{
+            a = min(a, arr[j]);
+            b = max(b, arr[j]);
+            if(b-a+1 == j)
+            ans[j] = 1;
+        }
+        j += 1;
+    }
+    rep(i,1,n+1)
+    cout<<ans[i];
+    cout<<endl;
 }
 int main() {
     FAST_FURIER;
     int tt=1;
-    // cin >> tt;
+    cin >> tt;
     while(tt--){
         solve();
     
     }
 }
- 
  
  
  
