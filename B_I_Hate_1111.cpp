@@ -18,19 +18,24 @@ bool comp(ll x,ll y){
 /*...............code starts here................*/
 // C is first won in M
 ll n, k;
+ll m;
 void solve(){
     cin>>n;
-    ll p = n%11;
-    if(p * 111 <= n and (n - p * 111) % 11 == 0) 
-    cout << "YES";
-    else cout << "NO";
-    cout<<endl;
+    rep(d,0,11){
+        if(n >= 111*d and (n-d*111)%11==0){
+            cout<<"YES" << endl;
+            return;
+        }
+    }
+    cout<<"NO"<<endl;
  
 }
 int main() {
     FAST_FURIER;
     int tt=1;
     cin >> tt;
+    m = modulo();
+    // cout<<"x "<<x<<endl;
     while(tt--){
         solve();
     }

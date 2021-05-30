@@ -24,7 +24,6 @@ void solve(){
     cin>>n;
     rep(i,0,n) cin >> vec[i];
     //making priority queue
-    
     priority_queue<ll,vector<ll>,greater<ll> > pq;
     rep(i,0,n){
         count+=1;ans+=vec[i];

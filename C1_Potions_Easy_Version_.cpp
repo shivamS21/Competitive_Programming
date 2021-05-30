@@ -17,51 +17,33 @@ bool comp(ll x,ll y){
  
 /*...............code starts here................*/
 // C is first won in M
-ll dp[200005];
-vector<ll> vec(200005);
+ll dp[2001][2001]; 
+vector<ll> vec;
 ll n;
-ll calc(ll i, ll val){
-    if(i == n){
-        return 0;
-    }
-    ll &res = dp[i];
-
-    if(res != -1)
-    return res;
-
-    if(vec[i] < 0){
-        ll a = 0, b = 0;
-        if(val+vec[i]>=0){
-            a = 1 + calc(i+1, vec[i] + val);
-        b = calc(i+1, val);
-        }
-        else a = calc(i+1, val);
-        res = max(a, b);
-    }
-    else{
-        res = 1 + calc(i+1, val);
-    }
-    return res;
-
+ll calc(ll i, ll count, ll val){
+    if(i==n) return 0;
+    ll &res = dp[i]
 }
 void solve(){
     cin >> n;
-    rep(i,0,n) cin >> vec[i];
-    memset(dp,-1,sizeof(dp));
-
-    if(vec[0] >= 0){
-        ll a = 1 + calc(1, vec[0]);
-        ll b = calc(1, 0);
-        dp[0] = max(a, b);
-    }
-    else dp[0] = calc(1, 0);
-    cout << dp[0] << endl;
+    vec.resize(n);
+    rep(i,1,n+1) cin >> vec[i];
+    // dp[i][j] gives the no of ways where one can select j values in the [1..i] segment.
+    // if vec[i] > 0 then I can simple add it. 
+    // else I can choose it if the current value + vec[i] >= 0 or not choose it
+    // else I cant choose this.
+    if(vec[0]>-1)
+    dp[1][1] = calc(1,0,0);
+    else
+    dp[1][0] = calc(1,0,0)
 }
 int main() {
     FAST_FURIER;
     int tt=1;
     // cin >> tt;
+    memset(dp,-1,sizeof(dp));
     while(tt--){
         solve();
     }
 }
+ 
