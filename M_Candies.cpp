@@ -18,33 +18,31 @@ bool comp(ll x,ll y){
 /*...............code starts here................*/
 // C is first won in M
 ll c = 0; 
-vector<ll> vec(101);
-ll dp[101][100005];
 ll n,k;
-ll calc(ll i, ll p){
-    if(p==0)
-    return 1;
-    if(i==n)
-    return 0;
-    ll &res = dp[i][p];
-    if(res != -1)
-    return res;
-    ll a = 0;
-    rep(j,0,min(p,vec[i])+1){
-        a = (a + calc(i+1, p-j));
-    }
-    return res = a;
-}
 void solve(){
     cin >> n >> k;
-    rep(i,0,n) cin >> vec[i];
-    memset(dp, -1, sizeof(dp));
-    dp[0][k] = 0;
-    rep(i,0,min(k,vec[0])+1){
-        //cacl(index of the array, left k)
-        dp[0][k] = (dp[0][k] + calc(1,k-i))%M;  
+    vector<ll> vec(n+1);
+    rep(i,1,n+1) cin >> vec[i];
+    ll dp[n+1][k+1]={0};
+    dp[0][0] = 1;
+    rep(j,1,k+1)
+    dp[0][j] = 0;
+    rep(i,1,n+1){
+        vector<ll> sum(k+1);
+        sum[0] = dp[i-1][0];    
+        rep(j,1,k+1){
+            sum[j] = (sum[j-1] + dp[i-1][j])%M;
+        }
+        rep(j,0,k+1){
+            if(j <= vec[i])
+            dp[i][j] = sum[j];
+            else{
+                dp[i][j] = (sum[j] - sum[j-vec[i]-1] + M)%M;
+            }
+        }
+        sum.clear();
     }
-    cout<<dp[0][k]<<endl;
+    cout<<dp[n][k]%M<<endl;
 }
 int main() {
     FAST_FURIER;
