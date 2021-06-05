@@ -30,22 +30,18 @@ void solve(){
     if(k==1)
     ans=1;
     k -= 1;
+    ll size = vec.size();
     while(k>0){
-        if(n==2){
-            ans = (ans+1)%M;
-            k -= 1;
-            continue;
-        }
         if(!f){
             //backward iteration.
-            for(ll i = vec.size()-2; i >= 0; i--){
+            for(ll i = size-2; i >= 0; i--){
                vec[i] = (vec[i] + vec[i+1])%M;
             }
             ans = (ans + vec[0])%M;
         }
         else{
             //forward iteration.
-            for(ll i=1; i< vec.size(); i++){
+            for(ll i=1; i< size; i++){
                 vec[i] = (vec[i] + vec[i-1])%M;
             }
             ans = (ans + vec.back())%M;
