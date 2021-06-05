@@ -20,38 +20,39 @@ bool comp(ll x,ll y){
  
 void solve(){
     ll m,n,k;
-    cin >> n >> k;
-    if(n==1 and k > 1){
-        cout<<2<<endl;
-        return;
-    }
-    vector<ll> vec(n-1,1);
-    ll ans = 2, f = 0;
-    if(k==1)
-    ans=1;  
-    k -= 1;
-    cout << vec.size()-1<<endl;
-    ll size = vec.size();
-    while(k>0){
-        if(!f){
-            //backward iteration.
-            for(ll i = size-2; i >= 0; i--){
-               vec[i] = (vec[i] + vec[i+1])%M;
-            }
-            ans = (ans + vec[0])%M;
+    cin >> n >> m;
+    vector<int> vec[m];
+    vector<pair<int,int> > p(m);
+    rep(i,0,m){
+        cin >> k;
+        rep(j,0,k){
+            int input; cin >> input;
+            vec[i].pb(input);
         }
-        else{
-            //forward iteration.
-            for(ll i=1; i< size; i++){
-                vec[i] = (vec[i] + vec[i-1])%M;
-            }
-            ans = (ans + vec.back())%M;
-        }
-        // print(vec);
-        f = 1-f;
-        k -= 1;
+        p[i] = mk(k, i);  
     }
-    cout<<ans<<endl;
+    sorta(p);
+    vector<int> ans(m,0);
+    map<int,int> mp;
+    rep(i,0,m){
+        rep(j,0,p[i].first){
+            int ele = vec[p[i].second][j];
+            if(mp[ele] < (m+1)/2){
+                mp[ele] += 1;
+                ans[p[i].second] = ele;
+                break;
+            }
+        }
+    }
+    rep(i,0,m){
+        if(ans[i]==0){
+            cout<<"NO"<<endl;
+            return;
+        }
+    }
+    cout<<"YES"<<endl;
+    print(ans);
+    
 }
 int main() {
     FAST_FURIER;
