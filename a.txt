@@ -14,6 +14,7 @@ cout << "hello" << endl;
 7.always check for the condition needed to be satisified at the end of the 
 program possibly by putting the ans obtained eqaul to the result
 8.subarray sum equal to k
+9.segtree implementation is in the file name = segtreeimplement.cpp
 g++ -std=c++17
 */
 //euclidean advanced algorithm
@@ -168,7 +169,7 @@ void fac(){
 
 //good way to find the sum of coefficients of n from 0 to  n as nc0+ nc1 but deleting some terms meanwhile... this can be done using very nice trick 
 //trick is in file name Cards.cpp
-
+ 
 //dijkstra Algo
 //.............................................................//
 vector<pair<int,int>> adj[100005];
