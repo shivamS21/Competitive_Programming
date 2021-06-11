@@ -17,34 +17,52 @@ bool comp(ll x,ll y){
  
 /*...............code starts here................*/
 // C is first won in M
+ll fac[1001];
+void calc(){
+    fac[0]=fac[1]=1;
+    rep(i,2,1001)
+    fac[i] = (i*fac[i-1])%M;
+}
+ll power(ll no,ll p, ll mod)
+{
+    if(p == 1)
+    return no;
+    if(p == 0)
+    return 1;
+    ll q = power(no,p/2,mod);
+    q = (q*q)%M;
+    if(p % 2 != 0)
+    q = (q*no)%M;
+    return q;
+}
+ll ncr(ll n, ll r){
+    ll a = fac[n], b = fac[r], c = fac[n-r];
+    b = (b * c) % M;
+    b = power(b, M-2, M) % M;
+    a = (a * b) % M;
+    return a;
+}
 void solve(){
     ll m,n,k;
     cin >> n >> k;
     vector<ll>arr(n);
     rep(i,0,n) cin >> arr[i];
     sortd(arr);
-    ll sum = 0;
-    rep(i,0,k) sum += arr[i];
-    //now this question  is all about counting no of subsets whose sum is equal to 'sum' and.
-    // size of subsets is equal to k.
-    ll dp[n+1][sum+1][k+1];
-    memset(dp, 0, sizeof(dp));
-    rep(i,0,n+1)
-    dp[i][0][0] = 1;
-    rep(i,1,n+1){
-        rep(j,1,sum+1){
-            rep(p,1,k+1){
-                if(arr[i-1] <= j) dp[i][j][p] = (dp[i-1][j - arr[i-1]][p-1] + dp[i-1][j][p])%M;
-                else dp[i][j][p] = dp[i-1][j][p];
-            }   
-        }
+    ll ele = arr[k-1];
+    ll count = 0;
+    rep(i,0,n){
+        if(arr[i] == ele) ++count;
     }
-    cout << dp[n][sum][k] << endl;
+    ll pre = 0;
+    rep(i,0,k) if(arr[i]==ele) ++pre;
+    cout << ncr(count, pre)%M << endl;
+
 }
 int main() {
     FAST_FURIER;
     int tt=1;
     cin >> tt;
+    calc();
     while(tt--){
         solve();
     }

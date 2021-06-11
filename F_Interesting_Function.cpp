@@ -17,38 +17,14 @@ bool comp(ll x,ll y){
  
 /*...............code starts here................*/
 // C is first won in M
-string IntToString(ll a) 
-{ 
-    char x[100]; 
-    sprintf(x, "%lld", a); 
-    string s = x; 
-    return s; 
-} 
-ll count(ll a, ll b){
-    string x = IntToString(a), y = IntToString(b);
-    if(x.length() == y.length()){
-        ll ans = 0,l=x.length();
-        rep(i,0,l){
-            if(x[i] == y[i])
-            ++ans;
-        }
-        return ans;
-    }
-    else return y.length();
-}
+ 
 void solve(){
     ll l, r; cin >> l >> r;
     ll ans = 0;
-    while(l < r){
-        int diff = 10 - l % 10;
-        if(l + diff > r){
-            ans += r - l;
-            l = r;
-            break;
-        }
-        l += diff;
-        ans += diff - 1;
-        ans += count(l, r);
+    while(l != 0 or r != 0){
+        ans += r - l;
+        r = r / 10;
+        l = l / 10;
     }
     cout << ans << endl;
     
