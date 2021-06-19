@@ -17,16 +17,42 @@ bool comp(ll x,ll y){
  
 /*...............code starts here................*/
 // C is first won in M
- 
+vector<int> adj[200006];
+vector<int> visited(200006,0);
+int c = 0;
+void dfs(int node){
+    visited[node] = 1;
+    for(int x: adj[node]){
+        if(!visited[x]){
+            ++c;
+            dfs(x);
+        }
+    }
+}
 void solve(){
     ll m,n,k;
     cin >> n;
-    
+    vector<int> vec(n);
+    rep(i,0,n) cin >> vec[i];
+    rep(i,0,n/2){
+        if(vec[i] != vec[n-1-i])
+        adj[vec[i]].pb(vec[n-1-i]),
+        adj[vec[n-1-i]].pb(vec[i]);
+    }
+    int ans = 0;
+    rep(i,1,200005){
+        if(adj[i].size()>0 and !visited[i]){
+            dfs(i);
+            ans += c;
+            c = 0;
+        }
+    }
+    cout << ans << endl;
 }
 int main() {
     FAST_FURIER;
     int tt=1;
-    cin >> tt;
+    // cin >> tt;
     while(tt--){
         solve();
     }
