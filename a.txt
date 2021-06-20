@@ -98,10 +98,10 @@ void Sieve()
     ll n = 1e5;
     bool prime[n+1]; 
     memset(prime, true, sizeof(prime)); 
-    for(ll p=2;p*p <= n;p+=1) {
-        if(prime[p] == true){
-           for (ll i=p*p; i<=n; i += p) 
-                prime[i] = false;
+    for(ll i=2;i*i <= n;i+=1) {
+        if(prime[i] == true){
+           for (ll j=i*i; j<=n; j += i) 
+                prime[j] = false;
         }
     }
 } 
