@@ -17,32 +17,27 @@ bool comp(ll x,ll y){
  
 /*...............code starts here................*/
 // C is first won in M
-bool check(string a, string b){
-    // cout << a << " " << b << endl;
-    string x, y;
-    if(a.length() >= b.length()){
-        x = b;
-        x = a.substr(0, b.length())
-    }
-} 
+ 
 void solve(){
-    ll m,n,k;
-    cin >> n >> k;
-    string s; cin >> s;
-    string a = "";
-    rep(i,0,n){
-        a += s[i];
-        string b = s.substr(i+1, n-i-1);
-        if(check(a, b))
-        break;
+    ll a, b, c, d;
+    cin >> a >> b >> c >> d;
+    if(d*c - b <= 0) cout << -1 << endl;
+    else{
+        int count = 0;
+        int r = 0;
+        while(true){
+            a += b;
+            r += c;
+            count += 1;
+            int x = 0;
+            if(a %r == 0){
+                 x = a/r;
+            }
+            else x = a/r+1;
+            if(x <= d) break;
+        }
+        cout << count << endl;
     }
-    int len = a.length();
-    int req = (k + len - 1)/len;
-    string ans = "";
-    rep(i,0,req){
-        ans += a;
-    }
-    rep(i,0,k) cout << ans[i];
     
 }
 int main() {

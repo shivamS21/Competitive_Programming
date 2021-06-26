@@ -17,38 +17,18 @@ bool comp(ll x,ll y){
  
 /*...............code starts here................*/
 // C is first won in M
-bool check(string a, string b){
-    // cout << a << " " << b << endl;
-    string x, y;
-    if(a.length() >= b.length()){
-        x = b;
-        x = a.substr(0, b.length())
-    }
-} 
+ 
 void solve(){
     ll m,n,k;
-    cin >> n >> k;
-    string s; cin >> s;
-    string a = "";
-    rep(i,0,n){
-        a += s[i];
-        string b = s.substr(i+1, n-i-1);
-        if(check(a, b))
-        break;
-    }
-    int len = a.length();
-    int req = (k + len - 1)/len;
-    string ans = "";
-    rep(i,0,req){
-        ans += a;
-    }
-    rep(i,0,k) cout << ans[i];
-    
+    vector<int> vec(3);
+    rep(i,0,3) cin >> vec[i];
+    sortd(vec);
+    cout << vec[0] + vec[1] << endl;
 }
 int main() {
     FAST_FURIER;
     int tt=1;
-    // cin >> tt;
+    //cin >> tt;
     while(tt--){
         solve();
     }
