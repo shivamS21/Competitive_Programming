@@ -17,52 +17,41 @@ bool comp(ll x,ll y){
  
 /*...............code starts here................*/
 // C is first won in M
-bool check(string a, string b){
-    // cout << a << " " << b << endl;
-    rep(i,0,ll(min(a.length(), b.length()))){
-        if(a[i] > b[i])
-        return false;
-        else if(a[i] < b[i])
-        return true;
+set<ll> s;
+vector<ll> vec;
+void go(ll l, ll r){
+    ll sum = 0;
+    rep(i,l,r+1) sum += vec[i];
+    s.insert(sum);
+    ll pos = -1;
+    ll mid = (vec[l] + vec[r])/2;
+    rep(i,l,r+1){
+        if(vec[i] <= mid)
+        pos = i;
+        else break;
     }
-    string x, y;
-    if(a.length() >= b.length()){
-        return true;
-    } 
-    x = b;
-    y = a;
-    int n = x.length(), m = y.length();
-    if(m==0) return true;
-    // cout <<"shivam "<< y << " " << x << endl;
-    rep(i,m,n){
-        if(x[i] < y[(i)%m]) return false;
-    }
-    return true;
-} 
+    if(pos == -1 or pos == r) return;
+    go(l, pos);
+    go(pos+1, r);
+}
 void solve(){
     ll m,n,k;
     cin >> n >> k;
-    string s; cin >> s;
-    string a = "", b = s;
-    rep(i,0,n){
-        a += s[i];
-        b.erase(0,1);
-        if(check(a, b))
-        break;
+    vec.resize(n);
+    rep(i,0,n) cin >> vec[i];
+    sorta(vec);
+    go(0,n-1);
+    rep(i,0,k){
+        ll sum; cin >> sum;
+        if(s.find(sum)!=s.end()) cout << "Yes";
+        else cout << "No"; cout << endl;
     }
-    int len = a.length();
-    int req = (k + len - 1)/len;
-    string ans = "";
-    rep(i,0,req){
-        ans += a;
-    }
-    rep(i,0,k) cout << ans[i];
-    
+    s.clear();
 }
 int main() {
     FAST_FURIER;
     int tt=1;
-    // cin >> tt;
+    cin >> tt;
     while(tt--){
         solve();
     }
