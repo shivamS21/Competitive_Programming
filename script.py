@@ -8,7 +8,7 @@ output = process.communicate()[0]
 time.sleep(2)   
 
 # committing the changes
-today = date.today().strftime("%d %B")
+today = date.today().strftime("%B %d")
 process = subprocess.Popen(["git", "commit", "-m", today], stdout=subprocess.PIPE)
 output = process.communicate()[0]
 time.sleep(2)   
