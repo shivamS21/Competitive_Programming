@@ -18,3 +18,4 @@ time.sleep(2)
 # push the committed changes
 process = subprocess.Popen(["git", "push"], stdout=subprocess.PIPE)
 output = process.communicate()[0]
+ 
