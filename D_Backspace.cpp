@@ -20,31 +20,20 @@ bool comp(ll x,ll y){
  
 void solve(){
     ll m,n,k;
-    cin >> n;
     string s, t;
     cin >> s >> t;
-    if(s.length() < t.length()){
-        cout<<"NO"<<endl;
-        return;
-    }
-    vector<int> vec[26];
     n = s.length();
     m = t.length();
-    rep(i,0,n){
-        vec[s[i]-'a'].pb(i);
+    int j = m-1;
+    for(int i = n-1; i>=0 and j > -1; i-=2){
+        if(s[i] == t[j]){
+            j -= 1;
+            i += 1;
+        }
+        // cout << i << " " << j << endl;
     }
-    int p = -1;
-    if(vec[t[0]-'a'].size()) p = vec[t[0]-'a'];
-    int i = 0;
-    while(p!=-1 and i < m){
-        
-    }
-    if(p==-1){
-        cout<<"NO";
-    } else{
-        cout<<"YES";
-    }
-    cout<<endl;
+    if(j==-1) cout<<"YES";
+    else cout<<"NO"; cout<<endl;
 }
 int main() {
     FAST_FURIER;
