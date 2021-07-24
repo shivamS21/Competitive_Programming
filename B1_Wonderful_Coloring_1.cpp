@@ -17,16 +17,21 @@ bool comp(ll x,ll y){
  
 /*...............code starts here................*/
 // C is first won in M
-int p1[12], p2[12];
+ 
 void solve(){
     ll m,n,k;
     string s; cin >> s;
-    memset(p1, sizeof(p1), 0);
-    memset(p2, sizeof(p2), 0);
-    rrep(i,9,-1){
-        
+    n = s.length();
+    map<char, int> mp;
+    rep(i,0,n) mp[s[i]] += 1;
+    int ans = 0, temp = 0;
+    for(map<char, int>::iterator it = mp.begin(); it != mp.end(); ++it){
+        if(it->second > 1)
+        ans += 1;
+        else temp += 1;
     }
-    
+    ans += temp/2;
+    cout << ans << endl;
 }
 int main() {
     FAST_FURIER;

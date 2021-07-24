@@ -17,15 +17,18 @@ bool comp(ll x,ll y){
  
 /*...............code starts here................*/
 // C is first won in M
-int p1[12], p2[12];
+ 
 void solve(){
     ll m,n,k;
-    string s; cin >> s;
-    memset(p1, sizeof(p1), 0);
-    memset(p2, sizeof(p2), 0);
-    rrep(i,9,-1){
+    cin >> n >> m >> k;
+    int req = (n*m)/2;
+    if((n%2+m%2)==0) cout<<(k%2==0)?"YES":"NO";
+    else if(m%2==0){
         
+    } else{
+
     }
+    cout<<endl;
     
 }
 int main() {

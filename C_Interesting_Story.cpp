@@ -11,22 +11,45 @@ using namespace std;typedef long long ll;
 #define print(v)        for(ll ite=0;ite<v.size();ite++){cout<<v[ite]<<' ';}cout<<endl;
 #define M 1000000007
  
-bool comp(ll x,ll y){
-    return x > y;
+bool comp(ll a, ll b){
+    return a > b;
 }
  
 /*...............code starts here................*/
 // C is first won in M
-int p1[12], p2[12];
+ 
 void solve(){
     ll m,n,k;
-    string s; cin >> s;
-    memset(p1, sizeof(p1), 0);
-    memset(p2, sizeof(p2), 0);
-    rrep(i,9,-1){
-        
+    cin >> n;
+    vector<string> arr(n);
+    rep(i,0,n) cin >> arr[i];
+    int over = 0;
+    for(char ch='a'; ch <= 'e'; ch++){
+        vector<int> p;
+        rep(i,0,n){
+            m = arr[i].length();
+            int count = 0;
+            rep(j,0,m){
+                if(arr[i][j] == ch) ++count;
+            }
+            p.pb(2*count - m);
+        }
+        // cout << ch << " ";
+        // print(p)
+        sortd(p);
+        // cout << ch << " ";
+        // print(p)
+        int sum = 0, ans = 0;
+        rep(i,0,n){
+            if(sum + p[i] > 0){
+                sum += p[i];
+                ans += 1;
+            }
+        }
+        over = max(over, ans);
+
     }
-    
+    cout << over << endl;
 }
 int main() {
     FAST_FURIER;
@@ -36,4 +59,3 @@ int main() {
         solve();
     }
 }
- 

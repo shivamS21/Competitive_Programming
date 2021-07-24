@@ -17,16 +17,23 @@ bool comp(ll x,ll y){
  
 /*...............code starts here................*/
 // C is first won in M
-int p1[12], p2[12];
+ 
 void solve(){
     ll m,n,k;
-    string s; cin >> s;
-    memset(p1, sizeof(p1), 0);
-    memset(p2, sizeof(p2), 0);
-    rrep(i,9,-1){
-        
+    cin >> n;
+    ll c1, c2;
+    c2 = n/3;
+    c1 = n - 2*c2;
+    // cout << c1 << " " << c2 << endl;
+    ll a, b;
+    a = n/3;
+    b = (n-a)/2;
+    // cout << c1 << " " << c2 << " " << a << " " << b << endl;
+    if(a + 2*b == n){
+        if(abs(a-b) < abs(c1-c2)) cout << a << " " << b << endl;
+        else cout << c1 << " " << c2 << endl;
     }
-    
+    else cout << c1 << " " <<c2 << endl;
 }
 int main() {
     FAST_FURIER;
