@@ -45,10 +45,11 @@ void solve(){
         ll no = a[i-1] ^ y;
         vector<int> b = bin(no);
         vector<int> c = bin(a[i]);
-
+        // print(b);
+        // print(c);
         ll temp = 0;
         ll mult = 1;
-        rep(k,1,31){
+        rep(k,0,31){
             int nos = 0;
             if(b[k]){
                 if(c[k]) nos = 0;
@@ -59,6 +60,7 @@ void solve(){
             temp = temp + nos * mult;
             mult *= 2;
         }
+        // cout << i << " " << temp << endl;
         ans.pb(temp);
         y = temp;
         // cout << "halut" << endl;
@@ -68,7 +70,7 @@ void solve(){
     rep(i,0,n){
         x.pb(a[i] ^ ans[i]);
     }
-    print(x);
+    // print(x);
     // rep(i,0,n-1) cout << (x[i] ^ x[i+1]) << " ";
     // cout << endl;
 }
