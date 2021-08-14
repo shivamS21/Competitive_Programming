@@ -1,41 +1,44 @@
-//...START BY DOING WHAT IS NECESSARY, THEN WHAT IS POSSIBLE AND SUDDENLY YOU ARE DOING THE IMPOSSIBLE... 
-#include <bits/stdc++.h>
-using namespace std;typedef long long ll;
-#define FAST_FURIER ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
-#define pb push_back
-#define mk make_pair
-#define sorta(v)        sort(v.begin(), v.end())
-#define sortd(v)        sort(v.begin(), v.end(), comp)
 #define rep(i,a,N)      for(ll i=a;i<N;i++)
 #define rrep(i,a,N)     for(ll i=a;i>N;i--)
-#define print(v)        for(ll ite=0;ite<v.size();ite++){cout<<v[ite]<<' ';}cout<<endl;
-#define M 1000000007
- 
-bool comp(ll x,ll y){
-    return x > y;
-}
- 
-/*...............code starts here................*/
-// C is first won in M
- 
-void solve(){
-    ll m,n,k=0;
-    cin >> n;
-    string s; cin >> s;
-    string t = s;
-    sorta(t);
+int Solution::solve(vector<int> &A) {
+    int a = 0, b = 0, c = 0, d = 0, e = 0, f = 0;
+    int n=A.size();
     rep(i,0,n){
-        if(s[i] != t[i])
-        ++k;
+        if(A[i]%3==0) a++;
+        else if(A[i]%3==1) b++;
+        else c++;
+        
+        if(i%3==0) d++;
+        else if(i%3==1) e++;
+        else f++;
     }
-    cout << k << endl;
-}
-int main() {
-    FAST_FURIER;
-    int tt=1;
-    cin >> tt;
-    while(tt--){
-        solve();
+    if(e !=b  || f !=c  || d !=a){
+        return -1;
     }
+    int ans1[3][3];
+    rep(i,0,3){
+        rep(j,0,3) ans1[i][j]=0;
+    }
+    rep(i,0,A.size()){
+        if(i%3 != A[i]%3) ans1[i%3][A[i]%3]++;
+    }
+    int ans = 0;
+    rep(i,0,3){
+        rep(j,0,3){
+            if(i != j){
+                int temp = min(ans1[i][j],ans1[j][i]); ans+=q;
+                ans1[i][j] -= temp;
+                ans1[j][i] -= temp;
+            }
+        }
+    }
+    
+    int ans = 0;
+    rep(i,0,3){
+        rep(j,0,3){
+            ans += ans1[i][j];
+        }
+    }
+    ans=ans + (ans / 3)*2;
+    return ans;
 }
- 
