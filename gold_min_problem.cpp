@@ -17,29 +17,41 @@ bool comp(ll x,ll y){
  
 /*...............code starts here................*/
 // C is first won in M
-ll rec(ll n, int i, vector<int> carry){
-    if(n==0){
-        if(carry[i] == 0 && carry[i+1] == 0) return 1;
-        else return 0;
+int dp[1010][1010];
+int m, n;
+const int MAX = 1000;
+void getMaxGold(int gold[MAX][MAX], int x, int y, int curr){
+    if(x >= n or y >= m) return;
+    if(curr + gold[x][y] > dp[x][y]){
+        dp[x][y] = curr + gold[x][y];
+        if(y+1 >= m) return;
+        if(x+1 < n)
+        getMaxGold(gold, x+1, y+1, dp[x][y]);
+        if(y+1 < m)
+        getMaxGold(gold, x-1, y+1, dp[x][y]);
     }
-    int rem = n%10;
-    if(carry[i]) rem = (rem+1)%10;
-    ll ans = (rem+1) * rec(n/10, i+1, carry);
-    carry[i+2] += 1;
-    ans += (9 - rem) * rec(n/10, i+1, carry);
-    return ans;
 }
 void solve(){
-    ll m,n,k;
-    cin >> n;
-    vector<int> carry(12, 0);
-    cout << rec(n, 0, carry);
-    
+    memset(dp, 0, sizeof(dp));
+    int gold[MAX][MAX]= { {1, 3, 1, 5},
+        {2, 2, 4, 1},
+        {5, 0, 2, 3},
+        {0, 6, 1, 2}
+    };
+    m = 4; n = 4;
+    rep(i,0,n){
+        getMaxGold(gold, i, 0, 0);
+    }
+    int mx = -1;
+    rep(i,0,n){
+        mx = max(mx, dp[i][0]);
+    }
+    cout << mx << endl;
 }
 int main() {
     FAST_FURIER;
     int tt=1;
-    cin >> tt;
+    // cin >> tt;
     while(tt--){
         solve();
     }
