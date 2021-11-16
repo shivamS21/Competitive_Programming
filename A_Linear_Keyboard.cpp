@@ -17,41 +17,31 @@ bool comp(ll x,ll y){
  
 /*...............code starts here................*/
 // C is first won in M
-int dp[1010][1010];
-int m, n;
-const int MAX = 1000;
-void getMaxGold(int gold[MAX][MAX], int x, int y, int curr){
-    if(x >= n or y >= m) return;
-    if(curr + gold[x][y] > dp[x][y]){
-        dp[x][y] = curr + gold[x][y];
-        if(y+1 >= m) return;
-        if(x+1 < n)
-        getMaxGold(gold, x+1, y+1, dp[x][y]);
-        if(y+1 < m)
-        getMaxGold(gold, x-1, y+1, dp[x][y]);
-    }
-}
+ 
 void solve(){
-    memset(dp, 0, sizeof(dp));
-    int gold[MAX][MAX]= { {1, 3, 1, 5},
-        {2, 2, 4, 1},
-        {5, 0, 2, 3},
-        {0, 6, 1, 2}
-    };
-    m = 4; n = 4;
-    rep(i,0,n){
-        getMaxGold(gold, i, 0, 0);
+    string s, check;  cin >> check >> s;
+    int n = s.length();
+    int ans = 0;
+    for(int i = 1; i < n; i++){
+        int x = 0, y = 0;
+        for(int j = 0; j < 26; j++){
+            if(check[j] == s[i]){
+                x = j; break;
+            }
+        }
+        for(int j = 0; j < 26; j++){
+            if(check[j] == s[i-1]){
+                y = j; break;
+            }
+        }
+        ans += abs(x - y);
     }
-    int mx = -1;
-    rep(i,0,n){
-        mx = max(mx, dp[i][0]);
-    }
-    cout << mx << endl;
+    cout << ans << endl;
 }
 int main() {
     FAST_FURIER;
     int tt=1;
-    // cin >> tt;
+    cin >> tt;
     while(tt--){
         solve();
     }
