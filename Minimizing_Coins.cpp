@@ -19,31 +19,16 @@ bool comp(ll x,ll y){
 // C is first won in M
  
 void solve(){
-    ll m,n,k, w;
-    cin >> n >> w;
-    ll val,weight; 
-    for(int i = 1; i < n+1; i++){
-        cin >> weight[i] >> val[i];
-    }
-    ll dp[w+1][n+1];
-    for(int i = 0; i < w+1; i++) for(int j = 0; j < n+1; j++) dp[i][j] = 0;
-    for(int i = 1; i <= w; i++){
-        for(int j = 1; j <= n; j++){
-            if(weight[j] <= i){
-                //we can either take this weight, or can ignore it
-                dp[i][j] = max(val[j] + dp[i-weight[j]][j-1], dp[i][j-1]);
-            } else{
-                //we have to ignore this weight
-                dp[i][j] = dp[i][j-1];
-            }
-        }
-    }
-    cout << dp[w][n];
+    ll m,n,k;
+    cin >> n >> m;
+    vector<int> arr(n);
+    for(int i = 0; i < n)
+    
 }
 int main() {
     FAST_FURIER;
     int tt=1;
-    // cin >> tt;
+    cin >> tt;
     while(tt--){
         solve();
     }
