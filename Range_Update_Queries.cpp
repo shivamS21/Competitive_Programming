@@ -10,50 +10,48 @@ using namespace std;typedef long long ll;
 #define rrep(i,a,N)     for(ll i=a;i>N;i--)
 #define print(v)        for(ll ite=0;ite<v.size();ite++){cout<<v[ite]<<' ';}cout<<endl;
 #define M 1000000007
- 
+
 bool comp(ll x,ll y){
     return x > y;
 }
  
 /*...............code starts here................*/
 // C is first won in M
-void update(ll seg[], int index, int start, int end, int post, ll value){
-    if(start == end){
-        seg[index] += value;
-        return;
+void update(ll seg[], ll index, ll start, ll end, ll post, ll value){
+    if(start == end) seg[index] += value;
+    else{
+        ll mid = (start+end)/2;
+        if(post <= mid)
+        update(seg, 2*index, start, mid, post, value);
+        else update(seg, 2*index+1, mid+1, end, post, value);
+        seg[index] = seg[2*index+1] + seg[2*index];
     }
-    int mid = (start + end)/2;
-    if(post <= mid)
-    update(seg, 2*index, start, mid, post, value);
-    else update(seg, 2*index+1, mid+1, end, post, value);
-    seg[index] = seg[2*index]+seg[2*index+1];
-} 
-ll rangesum(ll seg[], int index, int start, int end, int l, int r){
+}
+ll rangesum(ll seg[], ll index, ll start, ll end, ll l, ll r){
     if(l > r) return 0;
-    if(start == l and end == r)
-    return seg[index];
-    int mid = (start+end)/2;
+    if(l == start and r == end) return seg[index];
+    ll mid = (start+end)/2;
     ll sum1 = rangesum(seg, 2*index, start, mid, l, min(r, mid));
-    ll sum2 = rangesum(seg, 2*index+1, mid+1, end, max(mid+1, l), r);
-    return sum1 + sum2;
+    ll sum2 = rangesum(seg, 2*index+1, mid+1, end, max(l, mid+1), r);
+    return sum1+sum2;
 }
 void solve(){
     ll m,n,k;
     cin >> n >> k;
     ll arr[n];
-    rep(i,0,n) cin >> arr[i];
-    ll seg[4*n+10]={0};
-
-    rep(i,0,k){
-        int check; cin >> check;
+    for(ll i = 0; i < n; i++) cin >> arr[i];
+    ll seg[4*n+10];
+    memset(seg, 0, sizeof(seg));
+    for(ll i = 0; i < k; i++){
+        ll check; cin >> check;
         if(check == 1){
-            int a, b; ll u; cin >> a >> b >> u;
+            ll a, b, u;
+            cin >> a >> b >> u;
             update(seg, 1, 0, n, a-1, u);
             update(seg, 1, 0, n, b, -u);
-        }
-        else{
-            int v; cin >> v;
-            cout << arr[v-1] + rangesum(seg, 1, 0, n, 0, v-1) << endl;
+        } else{
+            ll q; cin >> q;
+            cout << arr[q-1] + rangesum(seg, 1, 0, n, 0, q-1) << endl;
         }
     }
 }
