@@ -17,25 +17,34 @@ bool comp(ll x,ll y){
  
 /*...............code starts here................*/
 // C is first won in M
- 
+int findSubOrd(vector<int>&subOrd, vector<int>adj[], int node){
+    //findSubOrd will return the no of people node has subordinates
+    int count = 0;
+    for(int member: adj[node]){
+        count += findSubOrd(subOrd, adj, member);
+    }
+    return subOrd[node] = 1+count;
+}
 void solve(){
     ll m,n,k;
     cin >> n;
-    pair<int,int> arr[n-1];
+    int arr[n-1];
+    vector<int> adj[n+1];
     for(int i = 0; i < n-1; i++){
-        cin >> arr[i].first;
-        arr[i].second = i+2 ;
+        cin >> arr[i];
+        adj[arr[i]].push_back(i+2);
     }
-    sort(arr, arr+n-1);
-    int mp[n+3];
-    for(int i = 0; i < n+3; i++) mp[i] = 0;
-    for(int i = 0; i < n-1; i++) cout << arr[i].first << " "; cout << endl;
-    for(int i = 0; i < n-1; i++) cout << arr[i].second << " "; cout << endl;
-    for(int i = n-2; i > -1; i--){
-        mp[arr[i].first] += 1 + mp[arr[i].second];
-        cout << arr[i].first << " " << mp[arr[i].first] << endl;
+    //adj is basically containing all of it child
+    vector<int> subOrd(n+1, -1);
+    for(int i = 1; i <= n; i++){
+        if(subOrd[i] == -1){
+            //means not visited
+            findSubOrd(subOrd, adj, i);
+        }
     }
-    for(int i = 1; i <= n; i++) cout << mp[i] << " ";
+    for(int i = 1; i <= n; i++){
+        cout << subOrd[i] -1<< " ";
+    }
 }
 int main() {
     FAST_FURIER;
@@ -45,3 +54,4 @@ int main() {
         solve();
     }
 }
+ 
