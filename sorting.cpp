@@ -111,4 +111,5 @@ int main(){
     merge_sort(arr, 10);
     insertion_sort(arr, 10);
     bubble_sort(arr, 10);
+    cout << char('d'-2);
 }
