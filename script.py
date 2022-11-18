@@ -18,6 +18,6 @@ process = subprocess.Popen(["git", "push"], stdout=subprocess.PIPE)
 output = process.communicate()[0]
 
 # clear the terminal
-process = subprocess.Popen(["clear"], stdout=subprocess.PIPE)
+process = subprocess.Popen("clear", stdout=subprocess.PIPE)
 output = process.communicate()[0]
  
