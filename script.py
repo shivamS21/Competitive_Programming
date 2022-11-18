@@ -16,8 +16,4 @@ print("Committed the changes...")
 # push the committed changes
 process = subprocess.Popen(["git", "push"], stdout=subprocess.PIPE)
 output = process.communicate()[0]
-
-# clear the terminal
-process = subprocess.Popen("clear", stdout=subprocess.PIPE)
-output = process.communicate()[0]
  
