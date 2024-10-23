@@ -8,11 +8,7 @@ bool comp(ll x, ll y){
     return x > y; }
 /*...............code starts here................*/
 void solve(){
-    ll n; cin >> n;
-    ll msb = ll(log2(n));
-    ll ans = pow(2, msb)-1;
-    cout<<ans<<endl;
-    
+    ll n; 
 }
 int main() {
     FAST_FURIER;
